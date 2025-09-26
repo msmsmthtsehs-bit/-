@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page_title }} | نُعُومة</title>
+  <meta name="description" content="اكتشفي عالم العناية بالبشرة مع متجر نُعُومة. كريمات، سيرومات، منظفات، واقي شمس، أقنعة والمزيد من المنتجات الأصلية لتنعمي ببشرة صحية وجميلة.">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <style>
+  :root{
+    --accent:#ee0979;
+    --accent-hover:#ff6a00;
+    --muted:#a8a29e;
+    --bg:#fff7fa;
+    --card:#fff;
+    --button-text:#fff;
+  }
+  html,body{height:100%;margin:0;font-family:'Tajawal',sans-serif;background:var(--bg);color:#2e2344}
+  a{text-decoration:none;color:var(--accent)}
+  h1,h2,h3,h4,h5,h6{margin:0}
+  .container{max-width:1200px;margin:0 auto;padding:0 18px}
+  /* Header */
+  header{background:#fff;padding:14px 18px;box-shadow:0 2px 6px rgba(0,0,0,0.06);position:sticky;top:0;z-index:50;border-bottom:1px solid #f3d1df}
+  .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand img{height:48px;transition:transform 0.3s}
+  .brand img:hover{transform:scale(1.05)}
+  nav.main{display:flex;gap:14px;align-items:center}
+  .search{flex:1;max-width:420px;margin:8px 0}
+  input.search-input{width:100%;padding:10px 14px;border-radius:10px;border:1px solid #f3d1df;transition:border 0.3s}
+  input.search-input:focus{border-color:var(--accent);outline:none}
+  .menu-toggle{display:none;cursor:pointer;font-size:28px;color:var(--accent)}
+  .mobile-nav{display:none;flex-direction:column;gap:8px;margin-top:10px}
+  .mobile-nav a{padding:12px;border-bottom:1px solid #f3d1df;border-radius:6px;background:#fff0f5}
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1fr;gap:20px;padding:40px 0;align-items:start}
+  .hero .banner{background:linear-gradient(135deg,var(--accent),var(--accent-hover));color:white;padding:36px 24px;border-radius:16px;box-shadow:0 6px 20px rgba(238,9,121,0.08);transition:transform 0.3s}
+  .hero .banner:hover{transform:translateY(-5px)}
+  .hero .banner h1{font-size:32px;margin-bottom:12px;letter-spacing:2px}
+  .hero .banner p{margin-bottom:16px;font-size:17px;opacity:0.97;line-height:1.7}
+  .hero .banner a{display:inline-block;background:white;color:var(--accent);padding:12px 22px;border-radius:15px;font-weight:800;font-size:17px;transition:all 0.3s}
+  .hero .banner a:hover{background:var(--accent-hover);color:var(--button-text)}
+  /* product grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-top:16px}
+  .card{background:var(--card);padding:14px;border-radius:18px;box-shadow:0 6px 20px rgba(238,9,121,0.08);transition:transform 0.3s,box-shadow 0.3s}
+  .card:hover{transform:translateY(-5px);box-shadow:0 10px 28px rgba(238,9,121,0.13)}
+  .card img{width:100%;height:180px;object-fit:cover;border-radius:12px;border:2px solid #ffe4ef}
+  .price{font-weight:700;margin-top:8px;color:var(--accent)}
+  .meta{color:var(--muted);font-size:14px;margin-top:4px}
+  /* Buttons */
+  .card button,.card a.button{width:100%;padding:12px 0;border-radius:14px;border:0;font-weight:700;background:var(--accent);color:white;transition:all 0.3s}
+  .card button:hover,.card a.button:hover{background:var(--accent-hover);cursor:pointer}
+  /* Footer */
+  footer{background:linear-gradient(90deg,#ffdde1,#f3d1df 80%);color:#5b1e4d;padding:40px 0;margin-top:40px}
+  footer a{color:#ee0979;transition:color 0.3s}
+  footer a:hover{color:#ff6a00}
+  /* Responsive */
+  @media (min-width:900px){ .hero{grid-template-columns:2fr 1fr} .mobile-nav{display:none !important} .menu-toggle{display:none} nav.main{display:flex} }
+  @media (max-width:899px){ nav.main{display:none} .menu-toggle{display:block} .grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))} .card img{height:160px} .hero .banner h1{font-size:25px} .hero .banner p{font-size:15px} .hero .banner a{padding:10px 16px;font-size:15px} }
+  input,textarea,select,button{font-family:'Tajawal',sans-serif}
+
+  /* ===== صفحة الدفع ===== */
+  .checkout-container { display: none; width: 90%; max-width: 700px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 20px; }
+  .checkout-container h1 { text-align:center; color: var(--accent); margin-bottom: 20px; }
+  .checkout-container label { display:block; margin:10px 0 5px; font-weight:bold; }
+  .checkout-container input, .checkout-container select, .checkout-container textarea { width:100%; padding:10px; border:1px solid #ddd; border-radius:8px; margin-bottom:15px; }
+  .summary { background:#f1f1f1; padding:15px; border-radius:8px; margin-bottom:20px; }
+  .summary h3 {margin-top:0;color:#444;}
+  .product-summary {display:flex;justify-content:space-between;margin:8px 0;}
+  .checkout-btn { background: var(--accent); color:#fff; padding:12px; border:none; width:100%; border-radius:8px; font-size:16px; cursor:pointer; font-weight:700; }
+  .checkout-btn:hover {background: var(--accent-hover);}
+  </style>
+</head>
+<body>
+  
+
+  <header>
+    <div class="container topbar">
+      <div class="brand">
+        <a href="/"><div style="font-weight:900;font-size:20px;color:#ee0979;letter-spacing:2px">نُعُومة</div></a>
+        <div style="font-size:14px;color:var(--muted)">لكل ما تحتاجينه من العناية بجمالك وبشرتك</div>
+      </div>
+      <div class="search">
+        <form action="/search" method="get">
+          <input class="search-input" name="q" type="search" placeholder="ابحثي عن كريم، سيروم أو منتج" aria-label="Search">
+        </form>
+      </div>
+      <nav class="main">
+        <a href="/collections/all">كل المنتجات</a>
+        <a href="/collections/كريمات">كريمات</a>
+        <a href="/collections/سيرومات">سيرومات</a>
+        <a href="/collections/منظفات">منظفات</a>
+        <a href="/collections/واقي-شمس">واقي شمس</a>
+        <a href="/pages/about">عن نُعُومة</a>
+        <a href="/pages/shipping">التوصيل</a>
+      </nav>
+      <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    </div>
+    <div class="container">
+      <nav class="mobile-nav" id="mobileNav">
+        <a href="/collections/all">كل المنتجات</a>
+        <a href="/collections/كريمات">كريمات</a>
+        <a href="/collections/سيرومات">سيرومات</a>
+        <a href="/collections/منظفات">منظفات</a>
+        <a href="/collections/واقي-شمس">واقي شمس</a>
+        <a href="/pages/about">عن نُعُومة</a>
+        <a href="/pages/shipping">التوصيل</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="banner">
+        <h1>مرحباً بك في نُعُومة</h1>
+        <p>اكتشفي أسرار الجمال والعناية بالبشرة مع أفضل المنتجات الأصلية المخصصة لبشرتك. كريمات، سيرومات، منظفات، واقيات شمس وأقنعة من أشهر الماركات العالمية – كل ما تحتاجينه لتكوني أكثر إشراقاً وأنوثة.</p>
+        <a href="/collections/all" class="button">تسوّقي الآن</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div class="card">
+        <img src="product1.jpg" alt="كريم النهار">
+        <h3>كريم النهار</h3>
+        <p class="price">20 LYD</p>
+        <button onclick="showCheckout('كريم النهار', 20)">دفع</button>
+      </div>
+      <div class="card">
+        <img src="product2.jpg" alt="سيروم الليل">
+        <h3>سيروم الليل</h3>
+        <p class="price">35 LYD</p>
+        <button onclick="showCheckout('سيروم الليل', 35)">دفع</button>
+      </div>
+    </div>
+
+    <div class="checkout-container" id="checkoutContainer">
+      <h1>💖 نعومة - صفحة الدفع</h1>
+      <div class="summary">
+        <h3>ملخص الفاتورة</h3>
+        <div id="cart-items"></div>
+        <hr>
+        <div class="product-summary">
+          <strong>المجموع</strong>
+          <strong id="total-price">— LYD</strong>
+        </div>
+      </div>
+      <form id="checkoutForm">
+        <label>اسم المستلم 👤</label>
+        <input type="text" id="fullname" placeholder="ادخل اسمك الكامل" required>
+
+        <label>اللقب</label>
+        <input type="text" id="lastname" placeholder="ادخل لقبك">
+
+        <label>رقم الهاتف 📞</label>
+        <input type="tel" id="phone" placeholder="+218*********" required>
+
+        <label>المنطقة 📍</label>
+        <input type="text" id="area" placeholder="مثال: طرابلس، بنغازي..." required>
+
+        <label>ملاحظات</label>
+        <textarea id="notes" placeholder="أدخل ملاحظاتك هنا..."></textarea>
+
+        <label>طريقة الشحن 🚚</label>
+        <select id="shipping" required>
+          <option value="">اختر طريقة الشحن</option>
+          <option value="delivery">خدمة التوصيل</option>
+          <option value="pickup">الاستلام المباشر</option>
+        </select>
+
+        <label>طريقة الدفع 🔒</label>
+        <select id="payment" required>
+          <option value="">اختر طريقة الدفع</option>
+          <option value="cash">دفع نقدي</option>
+          <option value="card">بطاقة مصرفية عند التوصيل</option>
+        </select>
+
+        <label>عنوان التوصيل 📍</label>
+        <input type="text" id="address" placeholder="اكتب عنوانك بالتفصيل" required>
+
+        <button type="button" class="checkout-btn" onclick="sendWhatsApp()">✅ تأكيد الطلب</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between">
+      <div style="max-width:420px">
+        <h3 style="color:#ee0979;font-weight:900;letter-spacing:1px">نُعُومة</h3>
+        <p style="color:#5b1e4d;font-size:15px">رسالتنا أن تمنحي نفسك العناية التي تستحقينها! منتجات أصلية مختارة لجمالك، لبشرة أكثر نعومة وصحة وإشراق.</p>
+      </div>
+      <div style="display:flex;gap:24px;flex-wrap:wrap">
+        <div>
+          <h4>روابط</h4>
+          <ul style="padding-left:14px;list-style:disc">
+            <li><a href="/pages/shipping">سياسة التوصيل</a></li>
+            <li><a href="/pages/refund">استرجاع واستبدال</a></li>
+            <li><a href="/policies/privacy-policy">الخصوصية</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>تابعينا</h4>
+          <p>إنستغرام · فيسبوك · تيليجرام</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  function toggleMenu(){
+    var nav = document.getElementById('mobileNav');
+    if(nav.style.display === "flex"){ nav.style.display = "none"; } else { nav.style.display = "flex"; }
+  }
+
+  let cartProducts = [];
+
+  function showCheckout(name, price){
+    const checkout = document.getElementById("checkoutContainer");
+    checkout.style.display = "block";
+    cartProducts = [{name, price, quantity:1}];
+    renderCart();
+  }
+
+  function renderCart(){
+    const cartDiv = document.getElementById("cart-items");
+    cartDiv.innerHTML = "";
+    let total = 0;
+    cartProducts.forEach(item => {
+      const line = document.createElement("div");
+      line.className = "product-summary";
+      line.innerHTML = `<span>${item.name} × ${item.quantity}</span> <span>${item.price} LYD</span>`;
+      cartDiv.appendChild(line);
+      total += item.price * item.quantity;
+    });
+    document.getElementById("total-price").textContent = total + " LYD";
+  }
+
+  function sendWhatsApp(){
+    if(cartProducts.length === 0){ alert("لم يتم إضافة أي منتجات!"); return; }
+
+    const fullname = document.getElementById("fullname").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const area = document.getElementById("area").value.trim();
+    const shipping = document.getElementById("shipping").value;
+    const payment = document.getElementById("payment").value;
+    const address = document.getElementById("address").value.trim();
+
+    if(!fullname || !phone || !area || !shipping || !payment || !address){
+      alert("يرجى ملء جميع الحقول الإلزامية!");
+      return;
+    }
+
+    const lastname = document.getElementById("lastname").value.trim();
+    const notes = document.getElementById("notes").value.trim();
+
+    let productsText = cartProducts.map(p => `${p.name} × ${p.quantity} = ${p.price} LYD`).join("\n");
+    let totalPrice = cartProducts.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+
+    const message = `طلب جديد من متجر نُعُومة:\n\nالاسم: ${fullname} ${lastname}\nرقم الهاتف: ${phone}\nالمنطقة: ${area}\nالعنوان: ${address}\nملاحظات: ${notes}\nطريقة الشحن: ${shipping}\nطريقة الدفع: ${payment}\n\nالمنتجات:\n${productsText}\nالمجموع: ${totalPrice} LYD`;
+
+    const whatsappNumber = "218915066938";
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  }
+  </script>
+</body>
+</html>
