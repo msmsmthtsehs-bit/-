@@ -3,74 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جميع المنتجات</title>
+<title>صفحة المنتج المتطور</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { font-family: Tahoma, sans-serif; padding: 20px; background: #f5f5f5; }
-h1 { text-align: center; margin-bottom: 20px; }
-#search-input { padding: 8px; margin-bottom: 20px; width: 100%; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; }
-.products { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-.product-card { border: 1px solid #ccc; padding: 10px; width: 220px; background: #fff; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-.product-card img { width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px; }
-.product-card h2 { font-size: 16px; margin: 5px 0; }
-.product-card p { font-size: 14px; margin: 5px 0; min-height: 40px; }
-.product-card span { font-weight: bold; display: block; margin: 10px 0; }
-.product-card button { padding: 8px 12px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; transition: 0.2s; }
-.product-card button:hover { background: #0056b3; }
+  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .product { display: flex; flex-wrap: wrap; gap: 40px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+  .product-images { flex: 1; min-width: 300px; }
+  .product-images img { width: 100%; border-radius: 10px; object-fit: cover; margin-bottom: 10px; cursor: pointer; transition: transform 0.3s; }
+  .product-images img:hover { transform: scale(1.05); }
+  .product-details { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+  .product-title { font-size: 28px; font-weight: 700; }
+  .product-price { font-size: 24px; color: #e53935; font-weight: bold; }
+  .product-description { font-size: 16px; line-height: 1.6; color: #555; }
+  .product-options { margin: 10px 0; }
+  .product-options label { display: block; margin-bottom: 5px; font-weight: bold; }
+  .product-options select, .product-options input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+  .product-actions { display: flex; gap: 15px; margin-top: 15px; }
+  .btn { padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s; }
+  .btn-buy { background: #43a047; color: #fff; flex: 1; }
+  .btn-buy:hover { background: #388e3c; }
+  .btn-whatsapp { background: #25d366; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-whatsapp:hover { background: #1ebe5d; }
+  .ratings { display: flex; align-items: center; gap: 5px; color: #fbc02d; }
+  .reviews { margin-top: 20px; }
+  .review { border-top: 1px solid #eee; padding: 10px 0; }
+  .review:first-child { border-top: none; }
+  .review-author { font-weight: bold; }
+  .quantity { display: flex; align-items: center; gap: 10px; }
+  .quantity input { width: 60px; text-align: center; }
 </style>
 </head>
 <body>
-
-<h1>جميع المنتجات</h1>
-<input type="text" id="search-input" placeholder="ابحث عن منتج...">
-
-<div class="products" id="products-container"></div>
+<div class="container">
+  <div class="product">
+    <div class="product-images">
+      <img id="main-img" src="https://via.placeholder.com/500x500.png?text=Product+Image+1" alt="صورة المنتج">
+      <div class="thumbnails">
+        <img src="https://via.placeholder.com/100x100.png?text=1" onclick="changeImage(this.src)">
+        <img src="https://via.placeholder.com/100x100.png?text=2" onclick="changeImage(this.src)">
+        <img src="https://via.placeholder.com/100x100.png?text=3" onclick="changeImage(this.src)">
+      </div>
+    </div>
+    <div class="product-details">
+      <h1 class="product-title">اسم المنتج المتطور</h1>
+      <div class="ratings">
+        ★★★★☆ <span>(24 تقييم)</span>
+      </div>
+      <div class="product-price">1200 د.ل</div>
+      <div class="product-description">
+        هذا وصف تفصيلي للمنتج، يشمل جميع الميزات والفوائد التي تجعل المنتج مميزًا جدًا ومناسبًا لكل العملاء.
+      </div>
+      <div class="product-options">
+        <label for="size">اختر المقاس:</label>
+        <select id="size">
+          <option value="small">صغير</option>
+          <option value="medium">متوسط</option>
+          <option value="large">كبير</option>
+        </select>
+      </div>
+      <div class="product-options">
+        <label for="color">اختر اللون:</label>
+        <select id="color">
+          <option value="red">أحمر</option>
+          <option value="blue">أزرق</option>
+          <option value="green">أخضر</option>
+        </select>
+      </div>
+      <div class="quantity">
+        <label>الكمية:</label>
+        <input type="number" id="quantity" value="1" min="1">
+      </div>
+      <div class="product-actions">
+        <button class="btn btn-buy" onclick="addToCart()">أضف إلى السلة</button>
+        <button class="btn btn-whatsapp" onclick="contactWhatsApp()">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20" alt="واتساب">
+          تواصل عبر واتساب
+        </button>
+      </div>
+      <div class="reviews">
+        <h3>التقييمات:</h3>
+        <div class="review">
+          <div class="review-author">أحمد:</div>
+          <div class="review-text">منتج ممتاز جدًا وأنصح به!</div>
+        </div>
+        <div class="review">
+          <div class="review-author">سارة:</div>
+          <div class="review-text">خدمة رائعة وجودة عالية.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
-let productsData = [];
-
-// عرض المنتجات
-function displayProducts(products) {
-  const container = document.getElementById('products-container');
-  container.innerHTML = '';
-  products.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.innerHTML = `
-      <img src="${p.image}" alt="${p.name}">
-      <h2>${p.name}</h2>
-      <p>${p.description}</p>
-      <span>السعر: $${p.price}</span>
-      <button onclick="buyProduct('${p.name}', ${p.price})">شراء</button>
-    `;
-    container.appendChild(card);
-  });
+function changeImage(src) {
+  document.getElementById('main-img').src = src;
 }
 
-// زر شراء يفتح WhatsApp
-function buyProduct(name, price) {
-  const phone = '0915066938'; // ضع رقمك هنا
-  const message = `أريد شراء المنتج: ${name} بسعر ${price}$`;
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
+function addToCart() {
+  const title = document.querySelector('.product-title').textContent;
+  const price = document.querySelector('.product-price').textContent;
+  const size = document.getElementById('size').value;
+  const color = document.getElementById('color').value;
+  const quantity = document.getElementById('quantity').value;
+
+  alert(`تمت إضافة ${quantity} × ${title} (${size}, ${color}) إلى السلة بسعر ${price}`);
 }
 
-// جلب البيانات من JSON
-fetch('products.json')
-  .then(res => res.json())
-  .then(products => {
-    productsData = products;
-    displayProducts(productsData);
-  });
-
-// بحث سريع
-document.getElementById('search-input').addEventListener('input', () => {
-  const query = document.getElementById('search-input').value.toLowerCase();
-  const filtered = productsData.filter(p =>
-    p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
-  );
-  displayProducts(filtered);
-});
+function contactWhatsApp() {
+  const title = document.querySelector('.product-title').textContent;
+  const quantity = document.getElementById('quantity').value;
+  const phone = "0915066938"; // ضع رقمك هنا
+  const message = encodeURIComponent(`مرحبًا، أرغب بشراء ${quantity} × ${title}`);
+  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+}
 </script>
-
 </body>
 </html>
