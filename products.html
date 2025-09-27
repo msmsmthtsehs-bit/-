@@ -1,96 +1,48 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>كل المنتجات - نُعُومة</title>
-  <style>
-    body {
-      font-family: "Tahoma", sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #e91e63;
-      color: white;
-      padding: 15px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      padding: 15px;
-      text-align: center;
-    }
-    .card img {
-      max-width: 100%;
-      border-radius: 10px;
-    }
-    .card h3 {
-      margin: 10px 0;
-      font-size: 18px;
-    }
-    .price {
-      color: #e91e63;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-    .card button {
-      background: #e91e63;
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .card button:hover {
-      background: #c2185b;
-    }
-  </style>
-  <script>
-    function showCheckout(product, price) {
-      alert("أنت اخترت: " + product + " بسعر " + price + " LYD");
-    }
-  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عرض المنتجات من الاستوديو</title>
+<style>
+  body { font-family: Tahoma, sans-serif; padding: 20px; background: #f5f5f5; }
+  .product-card { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 200px; background: #fff; border-radius: 8px; }
+  img { width: 100%; height: auto; border-radius: 5px; }
+  h2 { font-size: 16px; margin: 5px 0; }
+  p { font-size: 14px; margin: 5px 0; }
+  span { font-weight: bold; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>كل المنتجات</h1>
-  </header>
 
-  <div class="products">
-    <div class="card">
-      <img src="product1.jpg" alt="كريم النهار">
-      <h3>كريم النهار</h3>
-      <p class="price">20 LYD</p>
-      <button onclick="showCheckout('كريم النهار', 20)">دفع</button>
-    </div>
+<h1>اختر صور المنتجات من جهازك</h1>
+<input type="file" id="file-input" multiple accept="image/*">
+<div id="products-container"></div>
 
-    <div class="card">
-      <img src="product2.jpg" alt="سيروم الليل">
-      <h3>سيروم الليل</h3>
-      <p class="price">35 LYD</p>
-      <button onclick="showCheckout('سيروم الليل', 35)">دفع</button>
-    </div>
+<script>
+const input = document.getElementById('file-input');
+const container = document.getElementById('products-container');
 
-    <div class="card">
-      <img src="product3.jpg" alt="منظف الوجه">
-      <h3>منظف الوجه</h3>
-      <p class="price">25 LYD</p>
-      <button onclick="showCheckout('منظف الوجه', 25)">دفع</button>
-    </div>
-  </div>
+input.addEventListener('change', () => {
+  container.innerHTML = ''; // تنظيف الحاوية قبل العرض
+  Array.from(input.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${e.target.result}" alt="${file.name}">
+        <h2>${file.name}</h2>
+        <p>وصف المنتج هنا</p>
+        <span>السعر: 0$</span>
+      `;
+      container.appendChild(card);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+
 </body>
 </html>
+
