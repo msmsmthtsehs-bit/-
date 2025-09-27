@@ -3,121 +3,69 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>صفحة المنتج المتطور</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<title>كل المنتجات - نُعُومة</title>
 <style>
-  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; background: #f9f9f9; color: #333; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-  .product { display: flex; flex-wrap: wrap; gap: 40px; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-  .product-images { flex: 1; min-width: 300px; }
-  .product-images img { width: 100%; border-radius: 10px; object-fit: cover; margin-bottom: 10px; cursor: pointer; transition: transform 0.3s; }
-  .product-images img:hover { transform: scale(1.05); }
-  .product-details { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
-  .product-title { font-size: 28px; font-weight: 700; }
-  .product-price { font-size: 24px; color: #e53935; font-weight: bold; }
-  .product-description { font-size: 16px; line-height: 1.6; color: #555; }
-  .product-options { margin: 10px 0; }
-  .product-options label { display: block; margin-bottom: 5px; font-weight: bold; }
-  .product-options select, .product-options input { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
-  .product-actions { display: flex; gap: 15px; margin-top: 15px; }
-  .btn { padding: 12px 25px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: all 0.3s; }
-  .btn-buy { background: #43a047; color: #fff; flex: 1; }
-  .btn-buy:hover { background: #388e3c; }
-  .btn-whatsapp { background: #25d366; color: #fff; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .btn-whatsapp:hover { background: #1ebe5d; }
-  .ratings { display: flex; align-items: center; gap: 5px; color: #fbc02d; }
-  .reviews { margin-top: 20px; }
-  .review { border-top: 1px solid #eee; padding: 10px 0; }
-  .review:first-child { border-top: none; }
-  .review-author { font-weight: bold; }
-  .quantity { display: flex; align-items: center; gap: 10px; }
-  .quantity input { width: 60px; text-align: center; }
+  body { font-family: 'Tajawal', sans-serif; margin:0; background:#f5f5f5; color:#2e2344; }
+  .container { max-width:1200px; margin:0 auto; padding:20px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+  .card { background:#fff; padding:14px; border-radius:18px; box-shadow:0 6px 20px rgba(238,9,121,0.08); text-align:center; transition:0.3s; }
+  .card:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(238,9,121,0.13); }
+  .card img { width:100%; height:180px; object-fit:cover; border-radius:12px; border:2px solid #ffe4ef; }
+  .price { font-weight:700; margin-top:8px; color:#ee0979; }
+  .card button { width:100%; padding:12px 0; border-radius:14px; border:0; font-weight:700; background:#ee0979; color:white; cursor:pointer; }
+  .card button:hover { background:#ff6a00; }
 </style>
 </head>
 <body>
 <div class="container">
-  <div class="product">
-    <div class="product-images">
-      <img id="main-img" src="https://via.placeholder.com/500x500.png?text=Product+Image+1" alt="صورة المنتج">
-      <div class="thumbnails">
-        <img src="https://via.placeholder.com/100x100.png?text=1" onclick="changeImage(this.src)">
-        <img src="https://via.placeholder.com/100x100.png?text=2" onclick="changeImage(this.src)">
-        <img src="https://via.placeholder.com/100x100.png?text=3" onclick="changeImage(this.src)">
-      </div>
+  <h1>جميع المنتجات</h1>
+  <div class="grid">
+    <div class="card">
+      <img src="product1.jpg" alt="كريم النهار">
+      <h3>كريم النهار</h3>
+      <p class="price">20 LYD</p>
+      <button onclick="showCheckout('كريم النهار', 20)">دفع</button>
     </div>
-    <div class="product-details">
-      <h1 class="product-title">اسم المنتج المتطور</h1>
-      <div class="ratings">
-        ★★★★☆ <span>(24 تقييم)</span>
-      </div>
-      <div class="product-price">1200 د.ل</div>
-      <div class="product-description">
-        هذا وصف تفصيلي للمنتج، يشمل جميع الميزات والفوائد التي تجعل المنتج مميزًا جدًا ومناسبًا لكل العملاء.
-      </div>
-      <div class="product-options">
-        <label for="size">اختر المقاس:</label>
-        <select id="size">
-          <option value="small">صغير</option>
-          <option value="medium">متوسط</option>
-          <option value="large">كبير</option>
-        </select>
-      </div>
-      <div class="product-options">
-        <label for="color">اختر اللون:</label>
-        <select id="color">
-          <option value="red">أحمر</option>
-          <option value="blue">أزرق</option>
-          <option value="green">أخضر</option>
-        </select>
-      </div>
-      <div class="quantity">
-        <label>الكمية:</label>
-        <input type="number" id="quantity" value="1" min="1">
-      </div>
-      <div class="product-actions">
-        <button class="btn btn-buy" onclick="addToCart()">أضف إلى السلة</button>
-        <button class="btn btn-whatsapp" onclick="contactWhatsApp()">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="20" alt="واتساب">
-          تواصل عبر واتساب
-        </button>
-      </div>
-      <div class="reviews">
-        <h3>التقييمات:</h3>
-        <div class="review">
-          <div class="review-author">أحمد:</div>
-          <div class="review-text">منتج ممتاز جدًا وأنصح به!</div>
-        </div>
-        <div class="review">
-          <div class="review-author">سارة:</div>
-          <div class="review-text">خدمة رائعة وجودة عالية.</div>
-        </div>
-      </div>
+    <div class="card">
+      <img src="product2.jpg" alt="سيروم الليل">
+      <h3>سيروم الليل</h3>
+      <p class="price">35 LYD</p>
+      <button onclick="showCheckout('سيروم الليل', 35)">دفع</button>
     </div>
+    <!-- أضف باقي المنتجات هنا بنفس الشكل -->
+  </div>
+
+  <div class="checkout-container" id="checkoutContainer" style="display:none;">
+    <h1>صفحة الدفع</h1>
+    <div id="cart-items"></div>
+    <div id="total-price"></div>
+    <!-- باقي النموذج كما في index.html -->
   </div>
 </div>
 
 <script>
-function changeImage(src) {
-  document.getElementById('main-img').src = src;
+let cartProducts = [];
+
+function showCheckout(name, price){
+  const checkout = document.getElementById("checkoutContainer");
+  checkout.style.display = "block";
+  cartProducts = [{name, price, quantity:1}];
+  renderCart();
 }
 
-function addToCart() {
-  const title = document.querySelector('.product-title').textContent;
-  const price = document.querySelector('.product-price').textContent;
-  const size = document.getElementById('size').value;
-  const color = document.getElementById('color').value;
-  const quantity = document.getElementById('quantity').value;
-
-  alert(`تمت إضافة ${quantity} × ${title} (${size}, ${color}) إلى السلة بسعر ${price}`);
-}
-
-function contactWhatsApp() {
-  const title = document.querySelector('.product-title').textContent;
-  const quantity = document.getElementById('quantity').value;
-  const phone = "0915066938"; // ضع رقمك هنا
-  const message = encodeURIComponent(`مرحبًا، أرغب بشراء ${quantity} × ${title}`);
-  window.open(`https://wa.me/${phone}?text=${message}`, "_blank");
+function renderCart(){
+  const cartDiv = document.getElementById("cart-items");
+  cartDiv.innerHTML = "";
+  let total = 0;
+  cartProducts.forEach(item => {
+    const line = document.createElement("div");
+    line.textContent = `${item.name} × ${item.quantity} = ${item.price} LYD`;
+    cartDiv.appendChild(line);
+    total += item.price * item.quantity;
+  });
+  document.getElementById("total-price").textContent = "المجموع: " + total + " LYD";
 }
 </script>
 </body>
 </html>
+
