@@ -6,28 +6,30 @@
 <title>جميع المنتجات</title>
 <style>
 body { font-family: Tahoma, sans-serif; padding: 20px; background: #f5f5f5; }
-.products { display: flex; flex-wrap: wrap; gap: 15px; }
-.product-card { border: 1px solid #ccc; padding: 10px; width: 200px; background: #fff; border-radius: 8px; text-align: center; }
-.product-card img { width: 100%; height: auto; border-radius: 5px; }
+h1 { text-align: center; margin-bottom: 20px; }
+#search-input { padding: 8px; margin-bottom: 20px; width: 100%; font-size: 14px; border: 1px solid #ccc; border-radius: 5px; }
+.products { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+.product-card { border: 1px solid #ccc; padding: 10px; width: 220px; background: #fff; border-radius: 8px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.product-card img { width: 100%; height: auto; border-radius: 5px; margin-bottom: 10px; }
 .product-card h2 { font-size: 16px; margin: 5px 0; }
-.product-card p { font-size: 14px; margin: 5px 0; }
-.product-card span { font-weight: bold; display: block; margin-bottom: 10px; }
-.product-card button { padding: 5px 10px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; }
+.product-card p { font-size: 14px; margin: 5px 0; min-height: 40px; }
+.product-card span { font-weight: bold; display: block; margin: 10px 0; }
+.product-card button { padding: 8px 12px; border: none; background: #007bff; color: white; border-radius: 5px; cursor: pointer; transition: 0.2s; }
 .product-card button:hover { background: #0056b3; }
 </style>
 </head>
 <body>
 
 <h1>جميع المنتجات</h1>
-
-<input type="text" id="search-input" placeholder="ابحث عن منتج..." style="padding:5px;margin-bottom:15px;width:100%;font-size:14px;">
+<input type="text" id="search-input" placeholder="ابحث عن منتج...">
 
 <div class="products" id="products-container"></div>
 
 <script>
-// قراءة المنتجات من ملف JSON
+// تخزين المنتجات بعد تحميلها
 let productsData = [];
 
+// عرض المنتجات في الصفحة
 function displayProducts(products) {
   const container = document.getElementById('products-container');
   container.innerHTML = '';
@@ -45,16 +47,15 @@ function displayProducts(products) {
   });
 }
 
-// وظيفة زر الشراء
+// زر شراء لكل منتج
 function buyProduct(name, price) {
-  // مثال: فتح WhatsApp برابط يحتوي اسم المنتج والسعر
   const phone = '0915066938'; // ضع رقمك هنا
   const message = `أريد شراء المنتج: ${name} بسعر ${price}$`;
   const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   window.open(url, '_blank');
 }
 
-// جلب المنتجات من JSON
+// جلب البيانات من products.json
 fetch('products.json')
   .then(response => response.json())
   .then(products => {
@@ -62,13 +63,17 @@ fetch('products.json')
     displayProducts(productsData);
   });
 
-// بحث سريع
-const searchInput = document.getElementById('search-input');
-searchInput.addEventListener('input', () => {
-  const filtered = productsData.filter(p => p.name.includes(searchInput.value) || p.description.includes(searchInput.value));
+// بحث سريع حسب الاسم أو الوصف
+document.getElementById('search-input').addEventListener('input', () => {
+  const query = document.getElementById('search-input').value.toLowerCase();
+  const filtered = productsData.filter(p => 
+    p.name.toLowerCase().includes(query) || 
+    p.description.toLowerCase().includes(query)
+  );
   displayProducts(filtered);
 });
 </script>
 
 </body>
 </html>
+
