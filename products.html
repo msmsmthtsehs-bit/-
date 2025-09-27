@@ -3,69 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>كل المنتجات - نُعُومة</title>
+<title>جميع المنتجات - نُعُومة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Tajawal', sans-serif; margin:0; background:#f5f5f5; color:#2e2344; }
-  .container { max-width:1200px; margin:0 auto; padding:20px; }
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
-  .card { background:#fff; padding:14px; border-radius:18px; box-shadow:0 6px 20px rgba(238,9,121,0.08); text-align:center; transition:0.3s; }
-  .card:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(238,9,121,0.13); }
-  .card img { width:100%; height:180px; object-fit:cover; border-radius:12px; border:2px solid #ffe4ef; }
-  .price { font-weight:700; margin-top:8px; color:#ee0979; }
-  .card button { width:100%; padding:12px 0; border-radius:14px; border:0; font-weight:700; background:#ee0979; color:white; cursor:pointer; }
-  .card button:hover { background:#ff6a00; }
+body { font-family:'Tajawal',sans-serif; margin:0; background:#f5f5f5; color:#2e2344; }
+.container { max-width:1200px; margin:0 auto; padding:20px; }
+h1 { text-align:center; margin-bottom:20px; color:#ee0979; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+.card { background:#fff; padding:14px; border-radius:18px; box-shadow:0 6px 20px rgba(238,9,121,0.08); text-align:center; transition:0.3s; }
+.card:hover { transform:translateY(-5px); box-shadow:0 10px 28px rgba(238,9,121,0.13); }
+.card img { width:100%; height:180px; object-fit:cover; border-radius:12px; border:2px solid #ffe4ef; }
+.price { font-weight:700; margin-top:8px; color:#ee0979; }
+.card button { width:100%; padding:12px 0; border-radius:14px; border:0; font-weight:700; background:#ee0979; color:white; cursor:pointer; }
+.card button:hover { background:#ff6a00; }
+.checkout-container { display:none; max-width:700px; margin:40px auto; background:#fff; border-radius:12px; padding:20px; box-shadow:0 4px 8px rgba(0,0,0,0.1); }
+.checkout-container h2 { text-align:center; color:#ee0979; margin-bottom:20px; }
+.summary { background:#f1f1f1; padding:15px; border-radius:8px; margin-bottom:20px; }
+.summary h3 { margin:0 0 10px 0; }
+.product-summary { display:flex; justify-content:space-between; margin:8px 0; }
+.checkout-btn { width:100%; padding:12px; border:none; border-radius:8px; font-size:16px; font-weight:700; background:#ee0979; color:#fff; cursor:pointer; }
+.checkout-btn:hover { background:#ff6a00; }
 </style>
 </head>
 <body>
+
 <div class="container">
   <h1>جميع المنتجات</h1>
+
   <div class="grid">
     <div class="card">
-      <img src="product1.jpg" alt="كريم النهار">
+      <img src="https://via.placeholder.com/220x180.png?text=كريم+النهار" alt="كريم النهار">
       <h3>كريم النهار</h3>
       <p class="price">20 LYD</p>
-      <button onclick="showCheckout('كريم النهار', 20)">دفع</button>
+      <button onclick="addToCart('كريم النهار', 20)">دفع</button>
     </div>
     <div class="card">
-      <img src="product2.jpg" alt="سيروم الليل">
+      <img src="https://via.placeholder.com/220x180.png?text=سيروم+الليل" alt="سيروم الليل">
       <h3>سيروم الليل</h3>
       <p class="price">35 LYD</p>
-      <button onclick="showCheckout('سيروم الليل', 35)">دفع</button>
+      <button onclick="addToCart('سيروم الليل', 35)">دفع</button>
     </div>
-    <!-- أضف باقي المنتجات هنا بنفس الشكل -->
+    <div class="card">
+      <img src="https://via.placeholder.com/220x180.png?text=كريم+الليل" alt="كريم الليل">
+      <h3>كريم الليل</h3>
+      <p class="price">25 LYD</p>
+      <button onclick="addToCart('كريم الليل', 25)">دفع</button>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/220x180.png?text=سيروم+النهار" alt="سيروم النهار">
+      <h3>سيروم النهار</h3>
+      <p class="price">30 LYD</p>
+      <button onclick="addToCart('سيروم النهار', 30)">دفع</button>
+    </div>
   </div>
 
-  <div class="checkout-container" id="checkoutContainer" style="display:none;">
-    <h1>صفحة الدفع</h1>
-    <div id="cart-items"></div>
-    <div id="total-price"></div>
-    <!-- باقي النموذج كما في index.html -->
+  <div class="checkout-container" id="checkoutContainer">
+    <h2>💖 صفحة الدفع</h2>
+    <div class="summary">
+      <h3>ملخص الفاتورة</h3>
+      <div id="cart-items"></div>
+      <hr>
+      <div class="product-summary">
+        <strong>المجموع</strong>
+        <strong id="total-price">— LYD</strong>
+      </div>
+    </div>
+    <form id="checkoutForm">
+      <label>الاسم الكامل</label>
+      <input type="text" id="fullname" placeholder="ادخل اسمك الكامل" required>
+
+      <label>رقم الهاتف</label>
+      <input type="tel" id="phone" placeholder="+218*********" required>
+
+      <label>المنطقة</label>
+      <input type="text" id="area" placeholder="مثال: طرابلس، بنغازي..." required>
+
+      <label>عنوان التوصيل</label>
+      <input type="text" id="address" placeholder="اكتب عنوانك بالتفصيل" required>
+
+      <label>ملاحظات</label>
+      <textarea id="notes" placeholder="أدخل ملاحظاتك هنا..."></textarea>
+
+      <button type="button" class="checkout-btn" onclick="sendWhatsApp()">✅ تأكيد الطلب عبر واتساب</button>
+    </form>
   </div>
 </div>
 
 <script>
 let cartProducts = [];
 
-function showCheckout(name, price){
-  const checkout = document.getElementById("checkoutContainer");
-  checkout.style.display = "block";
+function addToCart(name, price){
   cartProducts = [{name, price, quantity:1}];
   renderCart();
+  document.getElementById('checkoutContainer').style.display = 'block';
 }
 
 function renderCart(){
-  const cartDiv = document.getElementById("cart-items");
-  cartDiv.innerHTML = "";
+  const cartDiv = document.getElementById('cart-items');
+  cartDiv.innerHTML = '';
   let total = 0;
-  cartProducts.forEach(item => {
-    const line = document.createElement("div");
-    line.textContent = `${item.name} × ${item.quantity} = ${item.price} LYD`;
+  cartProducts.forEach(item=>{
+    const line = document.createElement('div');
+    line.className='product-summary';
+    line.innerHTML = `<span>${item.name} × ${item.quantity}</span><span>${item.price} LYD</span>`;
     cartDiv.appendChild(line);
     total += item.price * item.quantity;
   });
-  document.getElementById("total-price").textContent = "المجموع: " + total + " LYD";
+  document.getElementById('total-price').textContent = total + " LYD";
+}
+
+function sendWhatsApp(){
+  if(cartProducts.length===0){ alert("لم يتم إضافة أي منتجات!"); return; }
+
+  const fullname = document.getElementById('fullname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const area = document.getElementById('area').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const notes = document.getElementById('notes').value.trim();
+
+  if(!fullname || !phone || !area || !address){
+    alert("يرجى ملء جميع الحقول الإلزامية!");
+    return;
+  }
+
+  let productsText = cartProducts.map(p=>`${p.name} × ${p.quantity} = ${p.price} LYD`).join("\n");
+  let totalPrice = cartProducts.reduce((sum,p)=>sum + (p.price*p.quantity),0);
+
+  const message = `طلب جديد من متجر نُعُومة:\n\nالاسم: ${fullname}\nرقم الهاتف: ${phone}\nالمنطقة: ${area}\nالعنوان: ${address}\nملاحظات: ${notes}\n\nالمنتجات:\n${productsText}\nالمجموع: ${totalPrice} LYD`;
+
+  const whatsappNumber = "218915066938"; // ضع رقمك هنا
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url, "_blank");
 }
 </script>
+
 </body>
 </html>
-
