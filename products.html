@@ -26,10 +26,9 @@ h1 { text-align: center; margin-bottom: 20px; }
 <div class="products" id="products-container"></div>
 
 <script>
-// تخزين المنتجات بعد تحميلها
 let productsData = [];
 
-// عرض المنتجات في الصفحة
+// عرض المنتجات
 function displayProducts(products) {
   const container = document.getElementById('products-container');
   container.innerHTML = '';
@@ -47,7 +46,7 @@ function displayProducts(products) {
   });
 }
 
-// زر شراء لكل منتج
+// زر شراء يفتح WhatsApp
 function buyProduct(name, price) {
   const phone = '0915066938'; // ضع رقمك هنا
   const message = `أريد شراء المنتج: ${name} بسعر ${price}$`;
@@ -55,20 +54,19 @@ function buyProduct(name, price) {
   window.open(url, '_blank');
 }
 
-// جلب البيانات من products.json
+// جلب البيانات من JSON
 fetch('products.json')
-  .then(response => response.json())
+  .then(res => res.json())
   .then(products => {
     productsData = products;
     displayProducts(productsData);
   });
 
-// بحث سريع حسب الاسم أو الوصف
+// بحث سريع
 document.getElementById('search-input').addEventListener('input', () => {
   const query = document.getElementById('search-input').value.toLowerCase();
-  const filtered = productsData.filter(p => 
-    p.name.toLowerCase().includes(query) || 
-    p.description.toLowerCase().includes(query)
+  const filtered = productsData.filter(p =>
+    p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query)
   );
   displayProducts(filtered);
 });
@@ -76,4 +74,3 @@ document.getElementById('search-input').addEventListener('input', () => {
 
 </body>
 </html>
-
