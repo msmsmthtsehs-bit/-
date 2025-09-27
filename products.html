@@ -3,46 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>عرض المنتجات من الاستوديو</title>
+<title>جميع المنتجات</title>
 <style>
-  body { font-family: Tahoma, sans-serif; padding: 20px; background: #f5f5f5; }
-  .product-card { border: 1px solid #ccc; padding: 10px; margin: 10px; display: inline-block; width: 200px; background: #fff; border-radius: 8px; }
-  img { width: 100%; height: auto; border-radius: 5px; }
-  h2 { font-size: 16px; margin: 5px 0; }
-  p { font-size: 14px; margin: 5px 0; }
-  span { font-weight: bold; }
+body { font-family: Tahoma, sans-serif; padding: 20px; background: #f5f5f5; }
+.products { display: flex; flex-wrap: wrap; gap: 15px; }
+.product-card { border: 1px solid #ccc; padding: 10px; width: 200px; background: #fff; border-radius: 8px; }
+.product-card img { width: 100%; height: auto; border-radius: 5px; }
+.product-card h2 { font-size: 16px; margin: 5px 0; }
+.product-card p { font-size: 14px; margin: 5px 0; }
+.product-card span { font-weight: bold; }
 </style>
 </head>
 <body>
 
-<h1>اختر صور المنتجات من جهازك</h1>
-<input type="file" id="file-input" multiple accept="image/*">
-<div id="products-container"></div>
+<h1>جميع المنتجات</h1>
+<div class="products" id="products-container"></div>
 
 <script>
-const input = document.getElementById('file-input');
-const container = document.getElementById('products-container');
-
-input.addEventListener('change', () => {
-  container.innerHTML = ''; // تنظيف الحاوية قبل العرض
-  Array.from(input.files).forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
+// قراءة المنتجات من ملف JSON
+fetch('products.json')
+  .then(response => response.json())
+  .then(products => {
+    const container = document.getElementById('products-container');
+    products.forEach(p => {
       const card = document.createElement('div');
       card.className = 'product-card';
       card.innerHTML = `
-        <img src="${e.target.result}" alt="${file.name}">
-        <h2>${file.name}</h2>
-        <p>وصف المنتج هنا</p>
-        <span>السعر: 0$</span>
+        <img src="${p.image}" alt="${p.name}">
+        <h2>${p.name}</h2>
+        <p>${p.description}</p>
+        <span>السعر: $${p.price}</span>
       `;
       container.appendChild(card);
-    };
-    reader.readAsDataURL(file);
+    });
   });
-});
 </script>
 
 </body>
 </html>
-
